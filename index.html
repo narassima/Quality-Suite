@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QFD House of Quality (HoQ) Excellence Engine</title>
+    <!-- Google Fonts: Inter and Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2pdf.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- KaTeX for LaTeX Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-logo">
+                <i class="fa-solid fa-hotel"></i>
+                <div class="logo-text">
+                    <h1>QFD House of Quality Suite</h1>
+                    <span>Dynamic Engineering &amp; Strategic Alignment Engine</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="load-template-btn" class="btn btn-secondary">
+                    <i class="fa-solid fa-book-open"></i> Load Default Case (Smart IoT Lock)
+                </button>
+                <button id="manual-download-btn" class="btn btn-success">
+                    <i class="fa-solid fa-file-pdf"></i> QFD Manual
+                </button>
+                <button id="pdf-export-btn" class="btn btn-primary">
+                    <i class="fa-solid fa-download"></i> Export Matrix PDF
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <div class="app-workspace">
+            <!-- Sidebar: Sequenced Step Pipeline -->
+            <aside class="app-sidebar">
+                <div class="pipeline-heading">QFD Pipeline</div>
+                <nav class="pipeline-nav">
+                    <a href="#welcome" class="nav-step active" data-step="welcome">
+                        <span class="step-num">0</span>
+                        <span class="step-label">Select Workspace Mode</span>
+                        <i class="fa-solid fa-chevron-right step-chevron"></i>
+                    </a>
+                    <a href="#step1" class="nav-step" data-step="1">
+                        <span class="step-num">1</span>
+                        <span class="step-label">Customer Needs (WHATs)</span>
+                        <span class="step-tag">Demand</span>
+                        <i class="fa-solid fa-chevron-right step-chevron"></i>
+                    </a>
+                    <a href="#step2" class="nav-step" data-step="2">
+                        <span class="step-num">2</span>
+                        <span class="step-label">Design Spec (HOWs)</span>
+                        <span class="step-tag">Engineering</span>
+                        <i class="fa-solid fa-chevron-right step-chevron"></i>
+                    </a>
+                    <a href="#step3" class="nav-step" data-step="3">
+                        <span class="step-num">3</span>
+                        <span class="step-label">Relationship Matrix</span>
+                        <span class="step-tag">Coefficients</span>
+                        <i class="fa-solid fa-chevron-right step-chevron"></i>
+                    </a>
+                    <a href="#step4" class="nav-step" data-step="4">
+                        <span class="step-num">4</span>
+                        <span class="step-label">Correlation Roof</span>
+                        <span class="step-tag">Interactions</span>
+                        <i class="fa-solid fa-chevron-right step-chevron"></i>
+                    </a>
+                    <a href="#step5" class="nav-step" data-step="5">
+                        <span class="step-num">5</span>
+                        <span class="step-label">Market Benchmarking</span>
+                        <span class="step-tag">Competitive</span>
+                        <i class="fa-solid fa-chevron-right step-chevron"></i>
+                    </a>
+                    <a href="#step6" class="nav-step" data-step="6">
+                        <span class="step-num">6</span>
+                        <span class="step-label">Technical Targets</span>
+                        <span class="step-tag">Targets</span>
+                        <i class="fa-solid fa-chevron-right step-chevron"></i>
+                    </a>
+                    <a href="#matrix-view" class="nav-step" data-step="matrix-view">
+                        <span class="step-num">7</span>
+                        <span class="step-label">Visual House of Quality</span>
+                        <span class="step-tag">The House</span>
+                        <i class="fa-solid fa-chevron-right step-chevron"></i>
+                    </a>
+                    <a href="#advisor" class="nav-step" data-step="advisor">
+                        <span class="step-num">8</span>
+                        <span class="step-label">QFD Decision Advisor</span>
+                        <span class="step-tag">RAG KB</span>
+                        <i class="fa-solid fa-chevron-right step-chevron"></i>
+                    </a>
+                </nav>
+
+                <div class="sidebar-info-card">
+                    <div class="card-title"><i class="fa-solid fa-compass"></i> QFD Process Guide</div>
+                    <p>Map voice of customer (WHATs) → Define specs (HOWs) → Connect inputs (Weights) → Identify tradeoffs (Roof) → Compare specs (Targets) → Formulate strategic design plan.</p>
+                </div>
+            </aside>
+
+            <!-- Main Interactive Display -->
+            <main class="app-display" id="print-content">
+                <!-- Collapsible Case Study Guide Panel -->
+                <div class="case-study-guide-panel" id="case-study-guide">
+                    <div class="guide-header" onclick="toggleCaseGuide()">
+                        <h3><i class="fa-solid fa-book"></i> Default Case Study Guide: Smart IoT Lock</h3>
+                        <i class="fa-solid fa-chevron-down" id="guide-chevron"></i>
+                    </div>
+                    <div class="guide-body collapsed" id="guide-body-content">
+                        <p><strong>Context:</strong> SecuTech is building a premium Smart IoT Lock. Key customer requirements are centered around reliability, battery lifespan, ease of installation, and mobile synchronization. The QFD helps align these WHATs to key design specifications (HOWs).</p>
+                        <div class="step-by-step-guide">
+                            <div class="guide-step">
+                                <strong>Step 1 (WHATs):</strong> Input customer voices like <em>"Long battery life"</em> (Importance: 5) and <em>"Instant mobile sync"</em> (Importance: 4).
+                            </div>
+                            <div class="guide-step">
+                                <strong>Step 2 (HOWs):</strong> Map engineering design metrics like <em>"Standby current draw"</em> (mA), <em>"Bluetooth chip TX power"</em> (dBm), and <em>"Enclosure sealing level"</em> (IP rating).
+                            </div>
+                            <div class="guide-step">
+                                <strong>Step 3 (Relationships):</strong> Strong mapping (9) is established between <em>"Long battery life"</em> and <em>"Standby current draw"</em>.
+                            </div>
+                            <div class="guide-step">
+                                <strong>Step 4 (Roof Correlation):</strong> Conflict is highlighted between <em>"Bluetooth chip TX power"</em> (wants high power for signal) and <em>"Standby current draw"</em> (wants low power for battery) - marked as a strong negative (--) trade-off.
+                            </div>
+                            <div class="guide-step">
+                                <strong>Step 5 (Market Benchmark):</strong> SecuTech compares its lock against Competitor A &amp; B. Competitor B leads on mobile sync speed.
+                            </div>
+                            <div class="guide-step">
+                                <strong>Step 6 (Technical Targets):</strong> Design target direction is set (e.g. minimize standby current to &lt; 0.05 mA).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 0: Welcome Mode Selector -->
+                <section id="sec-welcome" class="display-section active">
+                    <div class="section-hero">
+                        <h2>Quality Function Deployment (QFD) Suite</h2>
+                        <p>A tool to convert qualitative customer needs into quantitative engineering specifications and design benchmarks.</p>
+                    </div>
+
+                    <div class="card mode-card">
+                        <h3><i class="fa-solid fa-folder-open"></i> Select Workspace Mode</h3>
+                        <div class="card-body mode-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 20px 0;">
+                            <div class="mode-option-box" id="mode-load-default-box" style="border: 2px dashed var(--primary-light); padding: 25px 20px; border-radius: 8px; text-align: center; transition: all 0.3s;">
+                                <i class="fa-solid fa-book-open" style="font-size: 2.6rem; color: var(--accent); margin: 15px 0 20px;"></i>
+                                <h4 style="margin: 10px 0; font-family: 'Outfit', sans-serif;">Load Default Case Study</h4>
+                                <p class="help-text" style="font-size: 13px; margin: 10px 0 24px; line-height: 1.5; color: var(--text-secondary);">SecuTech Smart IoT Lock parameters. Automatically fills out the entire matrix.</p>
+                                <button class="btn btn-secondary btn-sm" id="welcome-load-default-btn" style="width: 100%;">Use Default Case</button>
+                            </div>
+                            <div class="mode-option-box" id="mode-clear-custom-box" style="border: 2px dashed var(--border); padding: 25px 20px; border-radius: 8px; text-align: center; transition: all 0.3s;">
+                                <i class="fa-solid fa-file-signature" style="font-size: 2.6rem; color: var(--primary); margin: 15px 0 20px;"></i>
+                                <h4 style="margin: 10px 0; font-family: 'Outfit', sans-serif;">Clear &amp; Enter My Own Data</h4>
+                                <p class="help-text" style="font-size: 13px; margin: 10px 0 24px; line-height: 1.5; color: var(--text-secondary);">Flushes the active workspace parameters so you can enter your custom specifications.</p>
+                                <button class="btn btn-primary btn-sm" id="welcome-clear-custom-btn" style="width: 100%;">Enter My Data</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-2col" style="margin-top: 25px;">
+                        <div class="card">
+                            <h3><i class="fa-solid fa-circle-question"></i> What is House of Quality?</h3>
+                            <div class="card-body">
+                                <p>The House of Quality is the core matrix of **Quality Function Deployment (QFD)**. Developed in Japan by Yoji Akao in 1966, it acts as a conceptual map linking customer voices (WHATs) directly to manufacturing and engineering parameters (HOWs).</p>
+                                <p>By resolving conflicts (the Roof), analyzing competitors, and scoring priorities, designers can focus resources on design specs that maximize customer satisfaction.</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3><i class="fa-solid fa-chart-line"></i> Priority Formulas</h3>
+                            <div class="card-body math-container">
+                                <p><strong>Engineering Absolute Importance Score:</strong></p>
+                                <div id="math-abs-formula">\[W_{abs, j} = \sum_{i=1}^{n} (R_{i,j} \times I_i)\]</div>
+                                <p>Where \(R_{i,j}\) is relationship weight (9, 3, 1) and \(I_i\) is customer importance (1–5).</p>
+                                <p><strong>Relative Engineering Weight (%):</strong></p>
+                                <div id="math-rel-formula">\[W_{rel, j} = \frac{W_{abs, j}}{\sum_{k} W_{abs, k}} \times 100\%\]</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 1: Customer Needs (WHATs) -->
+                <section id="sec-1" class="display-section">
+                    <div class="card">
+                        <div class="card-header-highlight">
+                            <h3><i class="fa-solid fa-comments"></i> Step 1: Customer Requirements &amp; Importance <i class="fa-solid fa-circle-info info-btn" style="color: var(--primary); cursor: pointer; margin-left: 8px;" onclick="showQfdInfo('step1')"></i></h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="section-desc">List what the customer expects from the product. Rate each from 1 (lowest) to 5 (highest importance).</p>
+                            <table class="qfd-edit-table" id="whats-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 70%;">Customer Requirement (WHAT)</th>
+                                        <th style="width: 20%; text-align: center;">Importance (1.0 - 5.0) <i class="fa-solid fa-circle-info" style="color: var(--primary); cursor: pointer;" onclick="showQfdFieldInfo('importance')"></i></th>
+                                        <th style="width: 10%; text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="whats-tbody">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                            <button id="add-what-btn" class="btn btn-secondary btn-sm" style="margin-top: 15px;">
+                                <i class="fa-solid fa-plus"></i> Add Customer Requirement
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 2: Technical/Design Specs (HOWs) -->
+                <section id="sec-2" class="display-section">
+                    <div class="card">
+                        <div class="card-header-highlight">
+                            <h3><i class="fa-solid fa-gears"></i> Step 2: Technical Design Characteristics <i class="fa-solid fa-circle-info info-btn" style="color: var(--primary); cursor: pointer; margin-left: 8px;" onclick="showQfdInfo('step2')"></i></h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="section-desc">Define how the company can address customer needs. These should be measurable engineering metrics.</p>
+                            <table class="qfd-edit-table" id="hows-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%;">Design Characteristic (HOW)</th>
+                                        <th style="width: 25%; text-align: center;">Unit</th>
+                                        <th style="width: 15%; text-align: center;">Direction</th>
+                                        <th style="width: 10%; text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hows-tbody">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                            <button id="add-how-btn" class="btn btn-secondary btn-sm" style="margin-top: 15px;">
+                                <i class="fa-solid fa-plus"></i> Add Design Characteristic
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 3: Relationship Coefficients -->
+                <section id="sec-3" class="display-section">
+                    <div class="card">
+                        <div class="card-header-highlight">
+                            <h3><i class="fa-solid fa-table-cells"></i> Step 3: Inter-Relationship Matrix <i class="fa-solid fa-circle-info info-btn" style="color: var(--primary); cursor: pointer; margin-left: 8px;" onclick="showQfdInfo('step3')"></i></h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="section-desc">Quantify how strongly each Technical Spec (HOW) impacts each Customer Need (WHAT). Select (9) for Strong, (3) for Medium, (1) for Weak, or blank for None.</p>
+                            <div class="table-scroll-container">
+                                <table class="matrix-grid-table" id="relationship-grid">
+                                    <!-- Populated by JS -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 4: Correlation Roof -->
+                <section id="sec-4" class="display-section">
+                    <div class="card">
+                        <div class="card-header-highlight">
+                            <h3><i class="fa-solid fa-triangle-exclamation"></i> Step 4: Engineering Spec Correlations (The Roof) <i class="fa-solid fa-circle-info info-btn" style="color: var(--primary); cursor: pointer; margin-left: 8px;" onclick="showQfdInfo('step4')"></i></h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="section-desc">Map correlations between different Technical Specs (HOWs) to resolve design conflicts. If improving Spec A degrades Spec B, mark as Negative. If it aids, mark as Positive.</p>
+                            <div class="roof-editor-container">
+                                <table class="qfd-edit-table" id="roof-editor-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Design Spec A</th>
+                                            <th>Design Spec B</th>
+                                            <th style="text-align: center; width: 30%;">Correlation Impact</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="roof-editor-tbody">
+                                        <!-- Dynamic pairs -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 5: Market Benchmarking -->
+                <section id="sec-5" class="display-section">
+                    <div class="card">
+                        <div class="card-header-highlight">
+                            <h3><i class="fa-solid fa-chart-bar"></i> Step 5: Market Performance Benchmarking <i class="fa-solid fa-circle-info info-btn" style="color: var(--primary); cursor: pointer; margin-left: 8px;" onclick="showQfdInfo('step5')"></i></h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="section-desc">Rate customer perception of performance (1–5 Scale) for your company and core competitors on each Customer Requirement.</p>
+                            <div class="table-scroll-container">
+                                <table class="matrix-grid-table" id="benchmark-grid">
+                                    <!-- Populated by JS -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 6: Technical Targets -->
+                <section id="sec-6" class="display-section">
+                    <div class="card">
+                        <div class="card-header-highlight">
+                            <h3><i class="fa-solid fa-bullseye"></i> Step 6: Engineering Targets &amp; Competitor Tech Benchmark <i class="fa-solid fa-circle-info info-btn" style="color: var(--primary); cursor: pointer; margin-left: 8px;" onclick="showQfdInfo('step6')"></i></h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="section-desc">Establish target values and list competitors' technical scores for each engineering specification.</p>
+                            <div class="table-scroll-container">
+                                <table class="matrix-grid-table" id="tech-targets-grid">
+                                    <!-- Populated by JS -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 7: Master Visual House of Quality -->
+                <section id="sec-matrix-view" class="display-section">
+                    <div class="card text-center" style="max-width: 100%; overflow-x: auto;">
+                        <div class="card-header-highlight">
+                            <h3><i class="fa-solid fa-hotel"></i> Synthesized House of Quality <i class="fa-solid fa-circle-info info-btn" style="color: var(--primary); cursor: pointer; margin-left: 8px;" onclick="showQfdInfo('step7')"></i></h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="section-desc">Calculated priorities, competitor rankings, and technical targets consolidated into the master HoQ diagram.</p>
+                            
+                            <!-- Master QFD Visual Container -->
+                            <div id="hoq-visual-wrapper" class="hoq-visual-wrapper">
+                                <!-- Generated Dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 8: QFD Decision Advisor (RAG KB) -->
+                <section id="sec-advisor" class="display-section">
+                    <div class="card">
+                        <div class="card-header-highlight">
+                            <h3><i class="fa-solid fa-brain"></i> Lean Quality &amp; QFD Decision Advisor</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="section-desc">Load active values from the House of Quality workspace to synthesize strategic recommendations, trade-off solutions, and expert literature guidance.</p>
+                            
+                            <div class="grid grid-2col" style="margin-bottom: 20px;">
+                                <button id="advisor-sync-btn" class="btn btn-secondary btn-block">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Load Active QFD Workspace Data
+                                </button>
+                                <button id="advisor-synthesize-btn" class="btn btn-primary btn-block">
+                                    <i class="fa-solid fa-lightbulb"></i> Synthesize Recommendations
+                                </button>
+                            </div>
+
+                            <div class="advisor-output-box hidden" id="advisor-results">
+                                <div class="alert alert-info" id="advisor-status">
+                                    <i class="fa-solid fa-microchip"></i> Analyzing matrix data with Quality Engineering Rules (Akao &amp; Kano modules loaded)...
+                                </div>
+
+                                <div class="advisor-section">
+                                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Critical Trade-off Hotspots</h4>
+                                    <p class="help-text">Engineering specifications that are in conflict but both require high priorities.</p>
+                                    <div class="advice-block" id="advice-conflicts">
+                                        <!-- Computed content -->
+                                    </div>
+                                </div>
+
+                                <div class="advisor-section">
+                                    <h4><i class="fa-solid fa-arrows-down-to-target"></i> Benchmarking Priority Gaps</h4>
+                                    <p class="help-text">Areas where customer importance is high, but competitor performance exceeds ours.</p>
+                                    <div class="advice-block" id="advice-benchmarks">
+                                        <!-- Computed content -->
+                                    </div>
+                                </div>
+
+                                <div class="advisor-section">
+                                    <h4><i class="fa-solid fa-graduation-cap"></i> Theoretical Alignment Guidelines</h4>
+                                    <p class="help-text">Relevant concepts from design-for-excellence methodology.</p>
+                                    <div class="advice-block" id="advice-theory">
+                                        <!-- Computed content -->
+                                    </div>
+                                </div>
+
+                                <div class="advisor-section">
+                                    <h4><i class="fa-solid fa-circle-check"></i> Action Checklist</h4>
+                                    <p class="help-text">Steps for the product development team.</p>
+                                    <ul class="checklist-ul" id="advice-checklist">
+                                        <!-- Computed content -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Info Detail Modal -->
+    <div class="modal-overlay hidden" id="info-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-title">Info Guidelines</h3>
+                <span class="close-modal-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Container for Practitioner Manual PDF compile -->
+    <div id="manual-template-container" class="hidden-pdf-template"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
