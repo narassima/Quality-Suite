@@ -859,30 +859,88 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Load Practitioner manual template inside hidden container
                 const container = document.getElementById('manual-template-container');
                 container.innerHTML = `
-                    <div style="padding: 30px; font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.6;">
-                        <h1 style="font-family: 'Outfit', sans-serif; color: #0f172a; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">
+                    <div style="padding: 30px; font-family: 'Inter', sans-serif; color: #1e293b; line-height: 1.7; font-size: 13.5px;">
+                        <h1 style="font-family: 'Outfit', sans-serif; color: #0f172a; border-bottom: 3px solid #3b82f6; padding-bottom: 10px; margin-top: 10px; font-size: 26px;">
                             House of Quality (QFD) Practitioner Manual
                         </h1>
-                        <p style="margin-top: 15px; font-size: 1.1rem; font-weight: bold; color: #475569;">
-                            Structured Product Planning and Engineering Spec Optimization
+                        <p style="margin-top: 10px; font-size: 1.2rem; font-weight: bold; color: #475569; font-family: 'Outfit', sans-serif;">
+                            The Complete Guide to Quality Function Deployment &amp; Engineering Matrix Analysis
                         </p>
                         
-                        <h2 style="margin-top: 25px; color: #1e293b;">1. Conceptual Background</h2>
-                        <p>Established by Yoji Akao in 1966, Quality Function Deployment (QFD) is a systematic approach to customer-driven design. The primary mechanism is the **House of Quality (HoQ)**, which aligns customer expectations directly to design engineering targets.</p>
+                        <h2 style="margin-top: 30px; color: #0f172a; border-bottom: 2px solid #cbd5e1; padding-bottom: 5px; font-family: 'Outfit', sans-serif; font-size: 18px;">1. Introduction to Quality Function Deployment (QFD)</h2>
+                        <p><strong>Quality Function Deployment (QFD)</strong> is a structured methodology developed in Japan in 1966 by quality management pioneers **Yoji Akao** and **Shigeru Mizuno**. Originally deployed at the Kobe Shipyards of Mitsubishi Heavy Industries, QFD was designed to establish quality controls at the design stage rather than relying solely on manufacturing-stage inspections.</p>
+                        <p>The core philosophy of QFD is to ensure that the "Voice of the Customer" (VoC) drives every stage of product development, from strategic design down to the assembly line. By systematically mapping customer requirements to technical specifications, QFD prevents late-stage engineering changes (which grow exponentially more expensive over time).</p>
                         
-                        <h2 style="margin-top: 20px; color: #1e293b;">2. Mathematical Formulations</h2>
-                        <p>Engineering prioritization scores are calculated using the absolute relevance weight:</p>
-                        <div style="background: #f8fafc; padding: 15px; border-radius: 6px; margin: 15px 0;">
-                            $$W_{abs, j} = \\sum_{i=1}^{n} (R_{i,j} \\times I_i)$$
+                        <h3 style="color: #1565c0; margin-top: 18px; font-family: 'Outfit', sans-serif; font-size: 15px;">The Four-Phase QFD Waterfall Model</h3>
+                        <p>In standard quality engineering practice, QFD is deployed sequentially through four interconnected matrices:</p>
+                        <ol style="margin-left: 20px; margin-bottom: 15px;">
+                            <li style="margin-bottom: 8px;"><strong>Phase 1: Product Planning (The House of Quality)</strong>: Translates customer requirements (WHATs) into technical design specifications (HOWs). This workbook focuses on Phase 1.</li>
+                            <li style="margin-bottom: 8px;"><strong>Phase 2: Parts Deployment</strong>: Translates the prioritized engineering specifications (HOWs) from Phase 1 into critical part characteristics (e.g. dimensions, material specs).</li>
+                            <li style="margin-bottom: 8px;"><strong>Phase 3: Process Planning</strong>: Maps critical part characteristics to manufacturing process steps, key operations, and tooling requirements.</li>
+                            <li style="margin-bottom: 8px;"><strong>Phase 4: Production Planning</strong>: Establishes operating procedures, process parameter control limits, and operator tallies/Standard Operating Procedures (SOPs).</li>
+                        </ol>
+
+                        <h2 style="margin-top: 35px; color: #0f172a; border-bottom: 2px solid #cbd5e1; padding-bottom: 5px; font-family: 'Outfit', sans-serif; font-size: 18px;">2. Anatomy of the House of Quality (HoQ) &amp; Its "Rooms"</h2>
+                        <p>The House of Quality is the structural matrix used to compile, prioritize, and analyze product development characteristics. It is composed of six distinct "rooms":</p>
+                        
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0; color: #1565c0; font-family: 'Outfit', sans-serif; font-size: 14px;"><i class="fa-solid fa-arrow-left"></i> Room 1: Customer Requirements (WHATs - Left Wall)</h4>
+                            <p style="margin-bottom: 0;">This room lists customer needs gathered from focus groups, surveys, and field research. It captures *what* the product must accomplish. Each requirement is assigned an <strong>Importance Weight</strong> on a scale of <strong>[1.0 - 5.0]</strong>. These weights act as the primary multiplier in calculating engineering priority scores.</p>
                         </div>
-                        <p>Where:</p>
-                        <ul>
-                            <li><strong>\\(I_i\\)</strong>: Customer Importance rating on scale 1 to 5.</li>
-                            <li><strong>\\(R_{i,j}\\)</strong>: Value of the relationship coefficient (Strong = 9, Medium = 3, Weak = 1, None = 0).</li>
-                        </ul>
+
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0; color: #1565c0; font-family: 'Outfit', sans-serif; font-size: 14px;"><i class="fa-solid fa-arrow-up"></i> Room 2: Engineering Characteristics (HOWs - Attic / Ceiling)</h4>
+                            <p style="margin-bottom: 0;">Translates qualitative customer needs into measurable, quantitative engineering variables. For instance, "easy to install" might map to "weight (kg)" or "torque specs". Each spec has a target direction of improvement: Maximize (\\uparrow), Minimize (\\downarrow), or Target Nominal (\\odot).</p>
+                        </div>
+
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0; color: #1565c0; font-family: 'Outfit', sans-serif; font-size: 14px;"><i class="fa-solid fa-table-cells"></i> Room 3: Relationship Matrix (The Main Room)</h4>
+                            <p style="margin-bottom: 10px;">The central grid that maps the strength of the relationship between each WHAT and HOW. It answers: <em>"How strongly does this engineering specification affect this customer requirement?"</em></p>
+                            <p style="margin-bottom: 0;">Values range from <strong>[0.0 - 10.0]</strong>, allowing decimal inputs. Standard scores are:
+                            <ul>
+                                <li>🔴 Strong Relationship (9.0): Highly significant direct impact.</li>
+                                <li>🟡 Medium Relationship (3.0): Indirect or secondary impact.</li>
+                                <li>🟢 Weak Relationship (1.0): Minor or possible impact.</li>
+                                <li>None (0.0): No impact.</li>
+                            </ul>
+                            </p>
+                        </div>
+
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0; color: #1565c0; font-family: 'Outfit', sans-serif; font-size: 14px;"><i class="fa-solid fa-caret-up"></i> Room 4: Correlation Matrix (The Roof)</h4>
+                            <p style="margin-bottom: 0;">A triangular matrix representing interactions between the engineering characteristics (HOWs vs. HOWs). It identifies engineering synergies (marked as <code>++</code> or <code>+</code>) and trade-offs/conflicts (marked as <code>-</code> or <code>--</code>). For example, increasing battery capacity improves uptime but conflicts with weight targets. Resolving these conflicts using TRIZ (Theory of Inventive Problem Solving) is key to design excellence.</p>
+                        </div>
+
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0; color: #1565c0; font-family: 'Outfit', sans-serif; font-size: 14px;"><i class="fa-solid fa-chart-bar"></i> Room 5: Market Assessment &amp; Benchmarking (Right Wall)</h4>
+                            <p style="margin-bottom: 10px;">Compares customer perception of your product vs. competitors A & B on a scale of <strong>[1.0 - 5.0]</strong> for each WHAT requirement. This helps identify areas of strategic vulnerability or competitive advantage.</p>
+                            <p style="margin-bottom: 0;">Designers apply the <strong>Kano Model</strong> here to classify features into:
+                            <ul>
+                                <li><strong>Must-Be Quality</strong>: Expected characteristics; absence causes severe dissatisfaction.</li>
+                                <li><strong>One-Dimensional Quality</strong>: Satisfaction is linear to performance.</li>
+                                <li><strong>Attractive Quality</strong>: Delight features that surprise and win market share.</li>
+                            </ul>
+                            </p>
+                        </div>
+
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e2e8f0;">
+                            <h4 style="margin-top: 0; color: #1565c0; font-family: 'Outfit', sans-serif; font-size: 14px;"><i class="fa-solid fa-bullseye"></i> Room 6: Technical Targets &amp; Priorities (The Foundation)</h4>
+                            <p style="margin-bottom: 0;">This basement section compiles calculated engineering priorities, absolute importance weights, and relative priority percentages. It also logs competitor physical spec measurements and sets final engineering design targets.</p>
+                        </div>
+
+                        <h2 style="margin-top: 35px; color: #0f172a; border-bottom: 2px solid #cbd5e1; padding-bottom: 5px; font-family: 'Outfit', sans-serif; font-size: 18px;">3. Mathematical Prioritization Formulations</h2>
+                        <p>To identify the "Vital Few" design characteristics, the HoQ uses weighted linear formulations to calculate priorities:</p>
                         
-                        <h2 style="margin-top: 20px; color: #1e293b;">3. Handling Roof Trade-offs</h2>
-                        <p>Conflicts in the roof correlation matrix (indicated by **-** or **--**) represent negative engineering trade-offs. For example, boosting transmission signal power increases battery current drain. Best practices include introducing decoupling designs or resolving conflicts using TRIZ (Theory of Inventive Problem Solving) principles.</p>
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #1565c0;">
+                            <strong>Absolute Engineering Importance Score:</strong>
+                            \[W_{abs, j} = \\sum_{i=1}^{n} (R_{i,j} \\times I_i)\]
+                            <p style="margin-top: 10px; margin-bottom: 10px; font-size: 12.5px; color: var(--text-secondary);">
+                                Where \(I_i\) is the customer importance weight for requirement \(i\), and \(R_{i,j}\) is the inter-relationship coefficient between requirement \(i\) and engineering spec \(j\).
+                            </p>
+                            <strong>Relative Engineering Priority (%):</strong>
+                            \[W_{rel, j} = \\frac{W_{abs, j}}{\\sum_{k=1}^{m} W_{abs, k}} \\times 100\%\]
+                        </div>
+                        <p>Using these equations, the product development team can prioritize engineering specifications that yield the highest customer satisfaction impact.</p>
                     </div>
                 `;
 
